@@ -1,0 +1,31 @@
+nav {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    background-color: #282c34;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 2%;
+}
+
+.spacer {
+    height: 80px;
+    width: 100vw;
+}
+
+/* nav {
+    display: flex;
+    align-items: center;
+    background-color: #282c34;
+} */
+
+.App-logo {
+    height: 20vmin;
+    pointer-events: none;
+  } 
