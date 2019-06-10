@@ -40,6 +40,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'));
+app.use('/beers', protect, require('./routes/beers'));
 
-
-module.exports = app;
+function protect(req, res, next) {
+    if(req.session.user) next()
+    else res.status(403).json({message: "not logged in"})
+}
+ module.exports = app;

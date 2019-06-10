@@ -67,36 +67,15 @@ router.post("/get-user", (req, res)=> {
   }
 })
 router.post("/update", upload.single('profilePic'), (req, res)=> {
-  debugger
   User.findOneAndUpdate({_id: req.session.user._id}, {profilePic: req.file.filename}, {new: true},)
     .then((updatedUser)=> {
       req.session.user.profilePic = updatedUser.profilePic
-      debugger
       res.status(200).json({message: "User updated", user: updatedUser })
     })
     .catch((err)=> {
       res.status(500).json({err: err})
     })
 })
-
-// router.post("/users", upload.single('profilePic'), (req, res)=> {
-//   debugger
-//   bcrypt.hash(req.body.password, 10, function(err, hash) {
-//     if(err) res.status(500).json({message: err}) //500 is a server error status code and will trigger catch in axios on the front-end
-//     else {
-//       let newUser = req.body
-//       newUser.profilePic = req.file.path
-//       newUser.password = hash
-//       User.create(newUser)
-//       .then((response)=> {
-//         res.status(200).json(response) //200 is a OK status code
-//       })
-//       .catch((err)=> {
-//         res.status(500).json({message: err}) 
-//       })
-//     }
-//   })
-// })
 
 router.post("/logout", (req, res)=> {
   if(req.session.user) {

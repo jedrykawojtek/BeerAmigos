@@ -5,7 +5,10 @@ const Schema = mongoose.Schema
 const userSchema = mongoose.model("user", new Schema({
     username: String,
     password: String,
-    profilePic: String
+    profilePic: String,
+    beersCreated: [{type: mongoose.Schema.Types.ObjectId, ref: "beer"}],
+    gotDrunkBy: [{type: mongoose.Schema.Types.ObjectId, ref: "beer"}],
+    favorites: [{type: mongoose.Schema.Types.ObjectId, ref: "beer"}]
 }))
 
 module.exports = userSchema
