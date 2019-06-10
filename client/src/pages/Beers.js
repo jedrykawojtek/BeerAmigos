@@ -15,10 +15,11 @@ export default class Beers extends React.Component {
     }
 
     render() {
-        var allBeers = <h1>loading</h1>
+        var allBeers = <h1>loading {this.props.Beers.beername}</h1>
         if(this.state.beers) {
             
             allBeers = this.state.beers.map((beer)=> (
+                
                 <>      
                 <h1>{beer.name}</h1>
                 
