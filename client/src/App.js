@@ -12,8 +12,12 @@ import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 import axios from 'axios';
 import history from "./history";
+import Footer from './components/Footer'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faInstagram, faPinterest, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
-
+library.add(faFacebook, faInstagram, faPinterest, faLinkedin, faYoutube)
 
 class App extends React.Component {
   constructor(props){
@@ -82,10 +86,11 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <Nav user={this.state.user} logout={this.logout} />
+          
 
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/" component={About} />
+            <Route exact path="/about" component={About} />
             <Route exact path="/" component={Beers} />
             <Route exact path="/" component={Events} />
             <Route exact path="/" component={Contact} />
@@ -95,7 +100,9 @@ class App extends React.Component {
           </Switch>
 
         </header>
+        <Footer/>
       </div>
+      
     )
   }
 }

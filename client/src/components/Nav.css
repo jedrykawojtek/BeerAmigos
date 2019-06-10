@@ -14,16 +14,14 @@ nav a {
     margin: 2%;
 }
 
+nav a:hover {
+    opacity: 0.7;
+}
+
 .spacer {
     height: 80px;
     width: 100vw;
 }
-
-/* nav {
-    display: flex;
-    align-items: center;
-    background-color: #282c34;
-} */
 
 .App-logo {
     height: 20vmin;

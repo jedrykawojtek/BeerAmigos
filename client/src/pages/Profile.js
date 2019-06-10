@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from "axios"
 import "./Login.css"
 import "./Profile.css"
+import CreateBeer from "./CreateBeer"
 
 export default class Profile extends Component {
     constructor(props){
@@ -25,7 +26,6 @@ export default class Profile extends Component {
         e.preventDefault();
         let form = this.formRef.current // document.getElementById("theForm")
         let formData = new FormData(form) // new
-        debugger
 
         axios({
             url: `${process.env.REACT_APP_BACK_END_BASE_URL}users/update`,
@@ -35,15 +35,18 @@ export default class Profile extends Component {
             withCredentials: true
         })
         .then((response)=> {
-            debugger
             this.props.updateUser(response.data.user);
         })
         .catch((user)=> {
-            debugger
         })
     }
     render() {
         return (
+
+            <>
+            <div className="user-greeting"> <p>Welcome {this.props.user.username}</p>
+            </div>
+
             <div className="flex-container">
     
                 <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
@@ -56,9 +59,12 @@ export default class Profile extends Component {
                 { this.props.user.profilePic? 
                     <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt=""/>
                     :
-                    <h1>Please upload your profile picture</h1>
+                    <h5>Please upload your profile picture</h5>
                 }
             </div>
+            <CreateBeer />
+            </>
         )
     }
 }
+
