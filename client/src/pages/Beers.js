@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Beer from "./components/Beer";
 
 export default class Beers extends React.Component {
 
@@ -18,10 +19,11 @@ export default class Beers extends React.Component {
         if(this.state.beers) {
             
             allBeers = this.state.beers.map((beer)=> (
+                <>      
                 <h1>{beer.name}</h1>
-        <>         
+                
                 <Beer>{beer.name}</Beer>
-                  
+                </>         
             ))
               
         }
@@ -31,7 +33,7 @@ export default class Beers extends React.Component {
                 <div>
                     {allBeers}
                 </div>
-            </>   
+             
         )
           
     }

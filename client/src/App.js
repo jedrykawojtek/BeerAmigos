@@ -4,6 +4,7 @@ import './App.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Beers from "./pages/Beers";
+import Beer from "./pages/Beer";
 import Events from "./pages/Events";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
@@ -89,11 +90,12 @@ class App extends React.Component {
           
 
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/" component={Beers} />
-            <Route exact path="/" component={Events} />
-            <Route exact path="/" component={Contact} />
+            <Route exact path="/Home" component={Home} />
+            <Route exact path="/About" component={About} />
+            <Route exact path="/Beers" component={Beers} />
+            <Route exact path="/Beer" component={Beer} />
+            <Route exact path="/Events" component={Events} />
+            <Route exact path="/Contact" component={Contact} />
             <Route exact path="/login" render={(props)=> <Login {...props} fetchUser={this.fetchUser} />} />
             <Route exact path="/sign-up" component={Signup} />
             <Route path="/profile" render={(props)=><Profile {...props} user={this.state.user} updateUser={this.updateUser} />} />
