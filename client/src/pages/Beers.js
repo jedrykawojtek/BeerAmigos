@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Beer from "./components/Beer";
+// import Beer from "./components/Beer";
 
 export default class Beers extends React.Component {
 
@@ -14,28 +14,28 @@ export default class Beers extends React.Component {
         })
     }
 
-    render() {
-        var allBeers = <h1>loading {this.props.Beers.beername}</h1>
-        if(this.state.beers) {
+//     render() {
+//         var allBeers = <h1>loading {this.props.Beers.beername}</h1>
+//         if(this.state.beers) {
             
-            allBeers = this.state.beers.map((beer)=> (
+//             allBeers = this.state.beers.map((beer)=> (
                 
-                <>      
-                <h1>{beer.name}</h1>
+//                 <>      
+//                 <h1>{beer.name}</h1>
                 
-                <Beer>{beer.name}</Beer>
-                </>         
-            ))
+//                 <Beer>{beer.name}</Beer>
+//                 </>         
+//             ))
               
-        }
+//         }
         
-        return(
+//         return(
             
-                <div>
-                    {allBeers}
-                </div>
+//                 <div>
+//                     {allBeers}
+//                 </div>
              
-        )
+//         )
           
-    }
+//     }
 }

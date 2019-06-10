@@ -4,7 +4,6 @@ import './App.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Beers from "./pages/Beers";
-import Beer from "./pages/Beer";
 import Events from "./pages/Events";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
@@ -93,7 +92,6 @@ class App extends React.Component {
             <Route exact path="/Home" component={Home} />
             <Route exact path="/About" component={About} />
             <Route exact path="/Beers" component={Beers} />
-            <Route exact path="/Beer" component={Beer} />
             <Route exact path="/Events" component={Events} />
             <Route exact path="/Contact" component={Contact} />
             <Route exact path="/login" render={(props)=> <Login {...props} fetchUser={this.fetchUser} />} />
