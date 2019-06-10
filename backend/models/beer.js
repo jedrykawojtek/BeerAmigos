@@ -12,14 +12,6 @@ const beerSchema = mongoose.model("beer", new Schema({
 
 module.exports = beerSchema
 
-// const userSchema = new Schema({
-//     username: {type: String, required: true},
-//     password: {type: String, required: true},
-//     profilePicture: {type: String, required: true}
-// })
-
-
-// module.exports = mongoose.model("User", userSchema)
 
 
 
