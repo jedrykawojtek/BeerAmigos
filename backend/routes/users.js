@@ -37,7 +37,7 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  User.findOne({username: req.body.username})
+  User.findOne({username: req.body.username}).populate("beersCreated")
     .then((user)=> {
       if(user) {
         bcrypt.compare(req.body.password, user.password, function(err, match){

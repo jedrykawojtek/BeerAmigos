@@ -5,11 +5,15 @@ var User = require("../models/user")
 var mongoose = require('mongoose')
 var multer  = require('multer')
 var path = require("path")
+var upload = multer({ dest: `${__dirname}/../public/uploads` })
 
-router.post("/beer", (req,res)=> {
+router.post("/beer", upload.single('beer-pic'), (req,res)=> {
+    debugger
     Beer.create( { 
         creator: req.session.user._id, 
-        ...req.body
+        ...req.body,
+        pic: req.file.filename
+
     })
     .then(beer =>{
         User.findOneAndUpdate({
@@ -43,6 +47,27 @@ router.get("/user-beers", (req, res)=> {
     // return the beers in json 
 })
 
+router.get("/delete", (req, res)=> {
+    debugger
+    // run with debugger
+    // req.query.id in right format? mongoosche.types.ObjectId?
+    Beer.findOne({_id: req.query.id})
+        .then((beer)=> {
+            if(beer.creator == req.session.user._id) {
+                beer.remove()
+                    .then(()=> {
+                        res.status(204).json({message: "Beer was removed"})
+                    })
+            }
+            else  {
+                res.status(403).json({message: "This is not your beer pall."})
+            }
+        })
+        .catch(err=> {
+            res.status(500).json({message: err})
+        })
+})
+
 router.get("/all", (req, res)=> {
 
     Beer.find({})
@@ -53,16 +78,30 @@ router.get("/all", (req, res)=> {
             res.status(500).json({message:err});
         })
 
-
-        // .then((beers)=> {
-        //     // send back in json
-        // })
-        // .catch((err)=> {
-        //     // send err back in json with erro status code
-        // })
 })
 
+router.get("/edit", (res, req)=>{
+    Beer.findOne({_id: req.query.id})
+    .then((beer)=> {
+        res.json(beer)
+    })
+    .catch(err=> {
+        res.status(500).json({message: err})
+    })
 
+})
+
+router.post("/edit", (res, req)=>{
+    if(beer.creator == req.session.user._id)
+    Beer.findOneAndUpdate ({_id: req.query.id}, {new: true})
+     .then ((beer)=> {
+        res.status(204).json(beer)
+    })
+    .catch(err=> {
+        res.status(500).json({message: err})
+    })
+
+})
 // updating creator with a new beer
 // router.get("/CreateBeer/:userId" , (req, res) => {
 
