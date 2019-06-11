@@ -3,6 +3,7 @@ import axios from "axios"
 import "./Login.css"
 import "./Profile.css"
 import CreateBeer from "./CreateBeer"
+import Beer from "../components/Beer";
 
 export default class Profile extends Component {
     constructor(props){
@@ -10,7 +11,8 @@ export default class Profile extends Component {
         this.state = {
             username: props.user.username,
             profilePic: "",
-            password: "password"
+            password: "password",
+            show:false
         }
         this.formRef = React.createRef(); // new
         this.handleChange = this.handleChange.bind(this);
@@ -38,9 +40,16 @@ export default class Profile extends Component {
             this.props.updateUser(response.data.user);
         })
         .catch((user)=> {
+            debugger
         })
     }
+    toggleSubmitForm = () =>{
+        this.setState({show: !this.state.show});
+    }
+
     render() {
+        
+        const beers = this.props.user.beersCreated ? this.props.user.beersCreated : [];
         return (
 
             <>
@@ -48,23 +57,33 @@ export default class Profile extends Component {
             </div>
 
             <div className="flex-container">
-    
-                <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
-                    <input onChange={this.handleChange}type="text" name="username" value={this.state.username}/>
-                    <input onChange={this.handleChange}type="password" name="password" value={this.state.password} />
-                    <input onChange={this.handleChange}type="file" name="profilePic" value={this.state.profilePic} />
-                    <button type="submit">Submit</button>
-                </form>
 
-                { this.props.user.profilePic? 
-                    <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt=""/>
-                    :
-                    <h5>Please upload your profile picture</h5>
+            { this.props.user.profilePic? 
+                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User picture"/>
+                        :
+                        <h5>Please upload your profile picture</h5>
                 }
+            <button onClick={this.toggleSubmitForm}>Edit your profile</button>
+            {this.state.show &&               
+                    <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
+                        <input onChange={this.handleChange}type="text" name="username" value={this.state.username}/>
+                        <input onChange={this.handleChange}type="password" name="password" value={this.state.password} />
+                        <input onChange={this.handleChange}type="file" name="profilePic" value={this.state.profilePic} />
+                        <button type="submit">Submit</button>
+                    </form>                   
+              }
+                    {/* { this.props.user.profilePic? 
+                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User picture"/>
+                        :
+                        <h5>Please upload your profile picture</h5>
+                } */}
             </div>
-            <CreateBeer />
+            <CreateBeer/>
+            {beers.map(beer =>{ 
+                return <Beer userId={this.props.user._id} {...beer}> {beer.name}</Beer>})}
+
             </>
+
         )
     }
 }
-

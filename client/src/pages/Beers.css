@@ -1,0 +1,16 @@
+.AllBeers{
+    display: flex;
+}
+
+.beer-card {
+    /* display: flex; */
+    height: 60vh;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+.pic {
+
+    height: 20vh;
+    width: 30vh;
+}

@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 import axios from 'axios';
+import EditBeer from "./pages/EditBeer";
 import history from "./history";
 import Footer from './components/Footer'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -41,10 +42,10 @@ class App extends React.Component {
       withCredentials: true
     })
     .then((response)=> {
+      
       this.setState({
         user: response.data
       }, ()=> {
-        debugger;
         history.push("/profile") // new but not required
       })
     })
@@ -56,7 +57,6 @@ class App extends React.Component {
   }
 
   updateUser = (user) => {
-    debugger
     this.setState({user});
   }
 
@@ -67,7 +67,6 @@ class App extends React.Component {
       url: `${process.env.REACT_APP_BACK_END_BASE_URL}users/logout`
     })
     .then((response)=> {
-      debugger
       this.setState({
         user: {}
       },()=> {
@@ -91,12 +90,13 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/Home" component={Home} />
             <Route exact path="/About" component={About} />
-            <Route exact path="/Beers" component={Beers} />
+            <Route exact path="/Beers" render={ (props) => <Beers {...props} user={this.state.user} /> } />
             <Route exact path="/Events" component={Events} />
             <Route exact path="/Contact" component={Contact} />
             <Route exact path="/login" render={(props)=> <Login {...props} fetchUser={this.fetchUser} />} />
             <Route exact path="/sign-up" component={Signup} />
             <Route path="/profile" render={(props)=><Profile {...props} user={this.state.user} updateUser={this.updateUser} />} />
+            <Route exact path="/beers/edit" component={EditBeer} />
           </Switch>
 
         </header>

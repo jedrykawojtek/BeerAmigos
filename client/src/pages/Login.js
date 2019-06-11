@@ -9,7 +9,6 @@ export default class Login extends Component {
         err: null
     }
 
-
     handleChange = (e)=> {
         this.setState({
             [e.target.name]: e.target.value
@@ -25,6 +24,7 @@ export default class Login extends Component {
             withCredentials: true
         })
         .then((response)=> {
+            
             this.props.fetchUser()
         })
         .catch((err)=> {

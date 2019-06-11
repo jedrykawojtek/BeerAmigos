@@ -16,7 +16,6 @@ export default class Signup extends Component {
     }
     submitForm = (e)=> {
         e.preventDefault()
-        debugger
         axios({
             // url: `${process.env.REACT_APP_BACK_END_BASE_URL}/users/signup`,
             url: `http://localhost:3001/users/signup`,
@@ -28,7 +27,6 @@ export default class Signup extends Component {
             withCredentials: true
         })
         .then((response)=> {
-            debugger
             this.props.history.push("/profile")
         })
         .catch((err)=> {
