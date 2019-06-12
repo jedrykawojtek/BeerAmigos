@@ -1,56 +1,45 @@
-/* .beer-card {
-    display: flex;
-    
-} */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
 
 .card {
-	background: white;
-	margin-bottom: 2em;	
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  background-color: white;
 }
 
-.card a {
-	color: black;
-	text-decoration: none;
+.type {
+  color: black;
+  font-size: 22px;
 }
 
-.card a:hover {
-	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+.tagline {
+  color: black;
+  font-size: 22px;
 }
 
-.card-content {
-	padding: 1.4em;
+.description {
+  color: black;
+  font-size: 22px;
 }
 
-.card-content h2 {
-	margin-top: 0;
-	margin-bottom: .5em;
-	font-weight: normal;
-}
-
-.card-content {
-	font-size: 95%;
-}
-
-img {
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
   width: 100%;
-  height: auto;
+  font-size: 18px;
 }
 
-.card-content button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-  }
-
-  .card-content button:hover, .card-content button:active, .card-content button:focus {
-    background: #43A047;
-  }
+.card button:hover {
+  opacity: 0.7;
+}

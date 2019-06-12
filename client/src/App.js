@@ -70,7 +70,7 @@ class App extends React.Component {
       this.setState({
         user: {}
       },()=> {
-        history.push("/")
+        history.push("/login")
       })
     })
     .catch((err)=> {
@@ -86,7 +86,6 @@ class App extends React.Component {
         <header className="App-header">
           <Nav user={this.state.user} logout={this.logout} />
           
-
           <Switch>
             <Route exact path="/Home" component={Home} />
             <Route exact path="/About" component={About} />

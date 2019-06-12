@@ -59,7 +59,7 @@ export default class Profile extends Component {
             <div className="flex-container">
 
             { this.props.user.profilePic? 
-                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User picture"/>
+                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User"/>
                         :
                         <h5>Please upload your profile picture</h5>
                 }
@@ -74,6 +74,7 @@ export default class Profile extends Component {
               }
                  
             </div>
+            <div className="Beer-list"></div>
             <CreateBeer/>
             {beers.map(beer =>{ 
                 return <Beer userId={this.props.user._id} {...beer}> {beer.name}</Beer>})}

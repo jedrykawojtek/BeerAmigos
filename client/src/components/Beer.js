@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import "./Beer.css";
 
 export default class Beer extends React.Component {
     constructor() {
@@ -8,10 +9,8 @@ export default class Beer extends React.Component {
         this.state = {
             deleteMessage: ""
         }
-    
     }
 
-    
     deleteHandler = () => {
          axios({
             url: `${process.env.REACT_APP_BACK_END_BASE_URL}beers/delete?id=${this.props._id}`,
@@ -26,16 +25,16 @@ export default class Beer extends React.Component {
     
     render() {
         return (
-            <div className="beer-cards">
-
+            <div className="grid-container">
+             
                 <div className="card"> 
-                <a href="#">
+               
                     <img className="pic" src={`http://localhodst:3001/uploads/${this.props.pic}`} alt="Beer picture"/>
-                        <div className="card-content"> 
+                        
                             <h1>{this.props.children}</h1>
-                            <p>{this.props.description}</p>
-                            <p>{this.props.tagline}</p>
-                            <p>{this.props.type}</p>
+                            <p className="type">{this.props.type}</p>
+                            <p className="tagline">{this.props.tagline}</p>
+                            <p className="description">{this.props.description}</p>
                             {this.props.userId === this.props.creator && 
                                 <>
                                     <Link to={{
@@ -49,16 +48,16 @@ export default class Beer extends React.Component {
                                                 id: this.props._id,                                       
                                             }
                                         }}>
-                                        <button placeholder="edit">Edit Beer</button>
+                                    <p><button placeholder="edit">Edit Beer</button></p>
                                     </Link>
-                                    <button onClick={this.deleteHandler}  placeholder="delete">Delete Beer</button>
+                                    <p><button onClick={this.deleteHandler}  placeholder="delete">Delete Beer</button></p>
                                 </>
                             }
                             {this.state.deleteMessage && <p>{this.state.deleteMessage}</p>}
-                        </div>
-                    </a>
+                        </div>             
                 </div>
-            </div>
+                
+           
         )
     }
 

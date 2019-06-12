@@ -10,7 +10,7 @@ export default function Nav(props) {
             <div className="Logo-name">
                 <h1>Beer Amigos®</h1>
             </div>
-            <Link to={"/"}>Home</Link>
+            <Link to={"/Home"}>Home</Link>
             <Link to={"/About"}>About</Link>
             <Link to={"/Beers"}>Beers</Link>
             <Link to={"/Events"}>Events</Link>
