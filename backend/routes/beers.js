@@ -8,7 +8,6 @@ var path = require("path")
 var upload = multer({ dest: `${__dirname}/../public/uploads` })
 
 router.post("/beer", upload.single('beer-pic'), (req,res)=> {
-    debugger
     Beer.create( { 
         creator: req.session.user._id, 
         ...req.body,
@@ -48,8 +47,6 @@ router.get("/user-beers", (req, res)=> {
 })
 
 router.get("/delete", (req, res)=> {
-    debugger
-    // run with debugger
     // req.query.id in right format? mongoosche.types.ObjectId?
     Beer.findOne({_id: req.query.id})
         .then((beer)=> {
@@ -68,15 +65,6 @@ router.get("/delete", (req, res)=> {
         })
 })
 
-router.get("/all", (req, res)=> {
-    Beer.find({})
-        .then(beers => {
-            res.status(200).json(beers)
-        })
-        .catch(err => {
-            res.status(500).json({message:err});
-        })
-})
 
 router.get("/edit", (res, req)=>{
     debugger

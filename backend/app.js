@@ -1,5 +1,3 @@
-// var createError = require('http-errors');
-// var express = require('express');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -46,7 +44,20 @@ app.use(express.static(path.join(__dirname, 'public/build')));
 
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'));
+
+const Beer = require("./models/beer")
+app.get("/beers/all", (req, res)=> {
+    Beer.find({})
+        .then(beers => {
+            res.status(200).json(beers)
+        })
+        .catch(err => {
+            res.status(500).json({message:err});
+        })
+})
+
 app.use('/beers', protect, require('./routes/beers'));
+
 
 function protect(req, res, next) {
     if(req.session.user) next()
