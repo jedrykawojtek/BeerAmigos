@@ -1,13 +1,16 @@
 nav {
+    font-family: Helvetica;
+    font-size: 24px;
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
     position: fixed;
     top: 0;
-    background-color: #282c34;
+    background-color: #000000;
 }
 
+/* "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue" */
 nav a {
     color: white;
     text-decoration: none;

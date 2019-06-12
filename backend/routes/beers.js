@@ -69,7 +69,6 @@ router.get("/delete", (req, res)=> {
 })
 
 router.get("/all", (req, res)=> {
-
     Beer.find({})
         .then(beers => {
             res.status(200).json(beers)
@@ -77,30 +76,58 @@ router.get("/all", (req, res)=> {
         .catch(err => {
             res.status(500).json({message:err});
         })
-
 })
 
 router.get("/edit", (res, req)=>{
+    debugger
     Beer.findOne({_id: req.query.id})
     .then((beer)=> {
-        res.json(beer)
-    })
-    .catch(err=> {
-        res.status(500).json({message: err})
-    })
-
+        if(beer.creator == req.session.user._id) {
+                beer.update()
+                    .then(()=> {
+                        res.status(204).json({message: "Beer is updated"})
+                    })
+            }
+            else  {
+                res.status(403).json({message: "This is not your beer pall."})
+            }
+        })
+        .catch(err=> {
+            res.status(500).json({message: err})
+        })
 })
 
-router.post("/edit", (res, req)=>{
-    if(beer.creator == req.session.user._id)
-    Beer.findOneAndUpdate ({_id: req.query.id}, {new: true})
-     .then ((beer)=> {
-        res.status(204).json(beer)
-    })
-    .catch(err=> {
-        res.status(500).json({message: err})
-    })
+router.post("/edit", upload.single('beer-pic'), (req, res)=>{
+    debugger
+    console.log(req.body, req.session.user._id)
+    console.log(req.files)
 
+    Beer.findById(req.body.id).then(beer => {
+    
+        if(beer.creator == req.session.user._id) {
+            let updatedBeer = {
+                type: req.body.type,
+                tagline: req.body.tagline,
+                description: req.body.description,
+                name: req.body.name,
+            }
+            
+            if(req.file) updatedBeer.pic = req.file.filename
+            
+            Beer.findOneAndUpdate ({_id: req.body.id}, updatedBeer, {new:true})
+            .then ((beer)=> {
+                res.status(200).json(beer)
+            })
+            .catch(err=> {
+                res.status(500).json({message: err})
+            })
+        } else {
+            res.status(403).json({message: "This is not your beer pall."})
+        }
+    }).catch(err => {
+        res.status(500).json({message: err});
+
+    })
 })
 // updating creator with a new beer
 // router.get("/CreateBeer/:userId" , (req, res) => {

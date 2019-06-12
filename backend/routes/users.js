@@ -80,6 +80,7 @@ router.post("/update", upload.single('profilePic'), (req, res)=> {
 router.post("/logout", (req, res)=> {
   if(req.session.user) {
     req.session.destroy()
+    // res.redirect('/login');
     res.status(200).json({message: "Logged out"})
   } else {
     res.status(403).json({message: "Not logged in"})

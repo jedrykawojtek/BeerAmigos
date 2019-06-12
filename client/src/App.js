@@ -96,7 +96,7 @@ class App extends React.Component {
             <Route exact path="/login" render={(props)=> <Login {...props} fetchUser={this.fetchUser} />} />
             <Route exact path="/sign-up" component={Signup} />
             <Route path="/profile" render={(props)=><Profile {...props} user={this.state.user} updateUser={this.updateUser} />} />
-            <Route exact path="/beers/edit" component={EditBeer} />
+            <Route path="/beers/edit" component={EditBeer} />
           </Switch>
 
         </header>

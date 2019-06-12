@@ -24,8 +24,12 @@ app.use(cors({
     credentials: true
 }))
 
-app.use(bodyParser.urlencoded({ extended: true }))
-
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
+ 
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -35,8 +39,10 @@ app.use(session({
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/build')));
 
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'));

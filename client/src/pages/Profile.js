@@ -72,11 +72,7 @@ export default class Profile extends Component {
                         <button type="submit">Submit</button>
                     </form>                   
               }
-                    {/* { this.props.user.profilePic? 
-                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User picture"/>
-                        :
-                        <h5>Please upload your profile picture</h5>
-                } */}
+                 
             </div>
             <CreateBeer/>
             {beers.map(beer =>{ 

@@ -21,18 +21,16 @@ export default class Beers extends React.Component {
 
     render() {
         var allBeers = <h1>loading </h1>
-        debugger
         if(this.state.beers) {
-            allBeers = this.state.beers.map((beer)=> {
-                debugger
-           return <Beer 
+            allBeers = this.state.beers.map((beer)=> 
+                <Beer 
                     userId={this.props.user._id}
                     {...beer}
                         >
                     {beer.name}
                   </Beer>
-        }) 
-    }
+            ) 
+        }
            return(
             <div className="AllBeers">
                 {allBeers}

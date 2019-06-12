@@ -13,6 +13,7 @@ export default class CreateBeer extends Component {
             description: "",
             pic: "",
             message: "",
+            show:false
         }
         this.formRef = React.createRef(); // new
         this.handleChange = this.handleChange.bind(this);
@@ -50,25 +51,37 @@ export default class CreateBeer extends Component {
             debugger
         })
     }
+    toggleSubmitForm = () =>{
+        this.setState({show: !this.state.show});
+    }
     render() {
         return (
 
             <> 
             <div className="flex-container">
                 <h3>Register your beer</h3>
-                <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
+                <button onClick={this.toggleSubmitForm}>Register your beer</button>
+                {this.state.show &&  
+                <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theBeerForm">
                     <input onChange={this.handleChange}type="text" name="name" value={this.state.name} placeholder="Beer name"/>
                     <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} placeholder="Beer tagline"/>
                     <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  placeholder="Beer type"/>
                     <input onChange={this.handleChange} type="file" name="beer-pic" />
                     <textarea onChange={this.handleChange} name="description"  placeholder="Beer description" value={this.state.description} >  </textarea>
-                    
-                    {/* <input onChange={this.handleChange}type="file" name="pic" value={this.state.pic} /> */}
                     <button type="submit">Submit</button>
+                    {/* <input onChange={this.handleChange}type="file" name="pic" value={this.state.pic} /> */}
+                    {/* <button type="submit">Submit</button> */}
                 </form>
+                }
                 {this.state.message? <h1>{this.state.message}</h1>: ""}
             </div>
+            <div className="title">
+            <h3>Your crafted beers list</h3>
+            </div>
             </>
+
+           
+            
         )
     }
 }

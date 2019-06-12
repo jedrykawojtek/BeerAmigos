@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
 import axios from "axios"
-import "./Login.css"
+import "./Beers.css"
 import "./Profile.css"
+// import Beer from "../components/Beer";
+
 
 export default class EditBeer extends Component {
     constructor(props){
         super(props)
+        debugger
+        let beer = props.location.state
         this.state = {
-            name: "",
-            tagline: "",
-            type: "",
-            description: "",
-            pic: "",
+           
+            name: beer.name,
+            tagline: beer.tagline,
+            type: beer.type,
+            description: beer.description,
+            id: beer.id,
             message: "",
             beer: {}
         }
         this.formRef = React.createRef(); // new
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
-
+        debugger
     }
 
     handleChange(e){
@@ -26,6 +31,7 @@ export default class EditBeer extends Component {
             [e.target.name]: e.target.value
         })
     }
+
     submit(e) {
         e.preventDefault();
         let form = this.formRef.current // document.getElementById("theForm")
@@ -46,40 +52,39 @@ export default class EditBeer extends Component {
                 pic: "",
                 type: ""
             })
+       
+            .then((response)=> {
+                let beers = response.data
+                this.setState({beers: beers})
+
+            })                    
+
         })
         .catch((user)=> {
             debugger
         })
     }
-    componentDidMount() {
-        axios({
-            url: `${process.env.REACT_APP_BACK_END_BASE_URL}beers/edit${this.props.location.search}`,
-            method: "get",
-            withCredentials: true
-        })
-        .then((response) => {
-            this.setState({beer: response})
-        })
-        .catch(err => console.log(err))
-    }
-    render() {
-        return (
 
+    render() {
+       
+        return (
             <> 
             <div className="flex-container">
                 <h3>Edit your beer</h3>
                 <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
-                    <input onChange={this.handleChange}type="text" name="name" value={this.state.name} placeholder="Beer name"/>
-                    <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} placeholder="Beer tagline"/>
-                    <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  placeholder="Beer type"/>
+                    <input onChange={this.handleChange}type="text" name="name" value={this.state.name} />
+                    <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} />
+                    <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  />
                     <input onChange={this.handleChange} type="file" name="beer-pic" />
-                    <textarea onChange={this.handleChange} name="description"  placeholder="Beer description" value={this.state.description} >  </textarea>
-                    
-                    {/* <input onChange={this.handleChange}type="file" name="pic" value={this.state.pic} /> */}
+                    <input type="text" hidden value={this.state.id} name="id"/>
+                    <textarea onChange={this.handleChange} name="description"  value={this.state.description} >  </textarea>
                     <button type="submit">Submit</button>
                 </form>
                 {this.state.message? <h1>{this.state.message}</h1>: ""}
             </div>
+            {/* <EditBeer/> */}
+            {/* {beers.map(beer =>{ 
+                return <Beer userId={this.props.user._id} {...beer}> {beer.name}</Beer>})} */}
             </>
         )
     }
