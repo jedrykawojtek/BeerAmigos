@@ -6,9 +6,19 @@ h1 {
   
   .Beer-Amigos {
     animation: Beer-Amigos-spin infinite 15s linear;
-    height: 40vmin;
-    margin: 80px;
+    height: 20vmin;
+    
   }
+  .Beer-Amigos img {
+    height: 200px;
+    width: 200px;
+    margin-top: 150px;
+
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 200px;
+    height: 100px;  }
 
   @keyframes Beer-Amigos-spin {
     from {
