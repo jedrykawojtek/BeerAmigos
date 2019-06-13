@@ -103,7 +103,18 @@ router.post("/edit", upload.single('beer-pic'), (req, res)=>{
             if(req.file) updatedBeer.pic = req.file.filename
             
             Beer.findOneAndUpdate ({_id: req.body.id}, updatedBeer, {new:true})
-            .then ((beer)=> {
+            .then ((updatedBeer)=> {
+                const beersCreated = [...req.session.user.beersCreated];
+                const updatedArr = beersCreated.map(beer => {
+                    debugger
+                    if(beer._id === updatedBeer.id) {
+                        beer === updatedBeer;
+                    }
+                    return beer;
+                });
+
+                req.session.user.beersCreated = updatedArr
+                debugger;
                 res.status(200).json(beer)
             })
             .catch(err=> {
@@ -115,6 +126,16 @@ router.post("/edit", upload.single('beer-pic'), (req, res)=>{
     }).catch(err => {
         res.status(500).json({message: err});
 
+    })
+})
+
+router.get("/personal", (req, res) => {
+    debugger
+    Beer.find({creator:req.session.user._id}).then(result => {
+        res.status(200).json({beers:result})
+    }).catch(err => {
+        throw err
+        res.status(500).json({message:err})
     })
 })
 // updating creator with a new beer
