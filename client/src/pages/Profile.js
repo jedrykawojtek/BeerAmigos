@@ -59,7 +59,7 @@ export default class Profile extends Component {
             <div className="flex-container">
 
             { this.props.user.profilePic? 
-                        <img id="profile-pic" src={`http://localhost:3001/images/${this.props.user.profilePic}`} alt="User"/>
+                        <img id="profile-pic" src={`${process.env.REACT_APP_BACK_END_BASE_URL}${this.props.user.profilePic}`} alt="User"/>
                         :
                         <h5>Please upload your profile picture</h5>
                 }

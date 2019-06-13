@@ -18,7 +18,7 @@ export default class Signup extends Component {
         e.preventDefault()
         axios({
             // url: `${process.env.REACT_APP_BACK_END_BASE_URL}/users/signup`,
-            url: `http://localhost:3001/users/signup`,
+            url: `${process.env.REACT_APP_BACK_END_BASE_URL}users/signup`,
             data: {
                 username: this.state.username,
                 password: this.state.password
