@@ -4,7 +4,7 @@
   "description": "Beer homebrewers platform",
   "main": "index.js",
   "scripts": {
-    "start": "node ./backend/bin/wwww",
+    "start": "node backend/bin/wwww",
     "install": "cd backend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
