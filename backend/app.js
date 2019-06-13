@@ -7,9 +7,9 @@ var cors = require("cors")
 var session = require('express-session')
 var bodyParser = require('body-parser')
 require("dotenv").config()
-const port = 3001;
+const port = process.env.PORT;
 
-mongoose.connect("mongodb://localhost/beer-amigos")
+mongoose.connect(process.env.MONGODB_URI)
     .then(()=> {
         console.log("connected to mongo")
     })
