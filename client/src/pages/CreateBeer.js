@@ -15,6 +15,7 @@ export default class CreateBeer extends Component {
             message: "",
             show:false
         }
+        this.props = props
         this.formRef = React.createRef(); // new
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
@@ -45,12 +46,21 @@ export default class CreateBeer extends Component {
                 description: "",
                 pic: "",
                 type: ""
+            }, ()=> {
+                debugger
+                var history = this.props.props.history
+                setTimeout(()=> {
+                    history.push("/beers")
+                }, 1000)
+            })             
+        })
+        .catch((response)=> {
+            this.setState({
+                message:  response.data
             })
         })
-        .catch((user)=> {
-            debugger
-        })
     }
+
     toggleSubmitForm = () =>{
         this.setState({show: !this.state.show});
     }

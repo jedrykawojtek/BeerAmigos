@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Beer from "../components/Beer";
-import "./Beers.css";
+import "../components/Beer.css";
 
 export default class Beers extends React.Component {
     state = {}
@@ -21,23 +21,36 @@ export default class Beers extends React.Component {
         })
     }
 
+    deleteBeer = (index) => {
+        const beers = [...this.state.beers];
+        beers.splice(index,1);
+        this.setState({beers});
+    }
+
     render() {
         
         var allBeers = <h1>loading </h1>
         if(this.state.beers) {
-            allBeers = this.state.beers.map((beer)=> 
+            
+            allBeers = this.state.beers.map((beer,i)=> 
                 <Beer 
+                 index={i}
+                    deleteBeer={this.deleteBeer}
                     userId={this.props.user._id}
                     {...beer}
                         >
                     {beer.name}
-                  </Beer>
+                </Beer>
             ) 
         }
            return(
-            <div className="AllBeers">
-                {allBeers}
-            </div>
+          
+                <div className="beer-card-container">
+                    <div className="row-card">
+                        {allBeers}
+                    </div>
+                </div>
+    
         )
           
     }

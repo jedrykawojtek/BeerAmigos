@@ -8,22 +8,20 @@ import "./Profile.css"
 export default class EditBeer extends Component {
     constructor(props){
         super(props)
-        debugger
         let beer = props.location.state
         this.state = {
-           
             name: beer.name,
             tagline: beer.tagline,
             type: beer.type,
             description: beer.description,
             id: beer.id,
             message: "",
-            beer: {}
+            beer: {},
+            show:false
         }
         this.formRef = React.createRef(); // new
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
-        debugger
     }
 
     handleChange(e){
@@ -44,6 +42,7 @@ export default class EditBeer extends Component {
             withCredentials: true
         })
         .then((response)=> {
+
             this.setState({
                 message: "Beer updated to brewery",
                 name: "",
@@ -51,18 +50,22 @@ export default class EditBeer extends Component {
                 description: "",
                 pic: "",
                 type: ""
+            }, ()=> {
+                var history = this.props.history
+                setTimeout(()=> {
+                    history.push("/profile")
+                }, 1000)
+            })             
+        })
+        .catch((response)=> {
+            this.setState({
+                message:  response.data
             })
-       
-            .then((response)=> {
-                let beers = response.data
-                this.setState({beers: beers})
-
-            })                    
-
         })
-        .catch((user)=> {
-            debugger
-        })
+    }
+
+    toggleSubmitForm = () =>{
+        this.setState({show: this.state.show});
     }
 
     render() {
@@ -70,21 +73,38 @@ export default class EditBeer extends Component {
         return (
             <> 
             <div className="flex-container">
-                <h3>Edit your beer</h3>
-                <form ref={this.formRef} /*new*/ onSubmit={this.submit} id="theForm">
-                    <input onChange={this.handleChange}type="text" name="name" value={this.state.name} />
-                    <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} />
-                    <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  />
-                    <input onChange={this.handleChange} type="file" name="beer-pic" />
-                    <input type="text" hidden value={this.state.id} name="id"/>
-                    <textarea onChange={this.handleChange} name="description"  value={this.state.description} >  </textarea>
-                    <button type="submit">Submit</button>
-                </form>
-                {this.state.message? <h1>{this.state.message}</h1>: ""}
-            </div>
-            {/* <EditBeer/> */}
-            {/* {beers.map(beer =>{ 
-                return <Beer userId={this.props.user._id} {...beer}> {beer.name}</Beer>})} */}
+                  
+                  
+                        <form ref={this.formRef} onSubmit={this.submit} id="theForm">
+                        <button style={{marginBottom: "20px"}}onClick={this.toggleSubmitForm}>Close this window</button>
+                            <input onChange={this.handleChange}type="text" name="name" value={this.state.name} />
+                            <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} />
+                            <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  />
+                            <input onChange={this.handleChange} type="file" name="beer-pic" />
+                            <input type="text" hidden value={this.state.id} name="id"/>
+                            <textarea onChange={this.handleChange} name="description"  value={this.state.description} >  </textarea>
+                            <button type="submit">Submit</button>
+                        </form> 
+                    {this.state.message? <h1>{this.state.message}</h1>: ""}
+                </div>
+                {/* <div className="flex-container">
+                    <button onClick={this.toggleSubmitForm}>Edit your beer</button>
+                    {this.state.show && 
+                        <form ref={this.formRef} onSubmit={this.submit} id="theForm">
+                            <input onChange={this.handleChange}type="text" name="name" value={this.state.name} />
+                            <input onChange={this.handleChange}type="text" name="tagline" value={this.state.tagline} />
+                            <input onChange={this.handleChange} type="text" name="type" value={this.state.type}  />
+                            <input onChange={this.handleChange} type="file" name="beer-pic" />
+                            <input type="text" hidden value={this.state.id} name="id"/>
+                            <textarea onChange={this.handleChange} name="description"  value={this.state.description} >  </textarea>
+                            <button type="submit">Submit</button>
+                        </form> 
+                    }
+                    {this.state.message? <h1>{this.state.message}</h1>: ""}
+                </div> */}
+                {/* <EditBeer/> */}
+                {/* {beers.map(beer =>{ 
+                    return <Beer userId={this.props.user._id} {...beer}> {beer.name}</Beer>})} */}
             </>
         )
     }
